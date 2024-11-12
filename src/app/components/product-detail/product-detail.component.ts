@@ -1,10 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from "../../services/product";
-import { ActivatedRoute, Router, NavigationEnd, RouterLink } from "@angular/router";
+import { ActivatedRoute, RouterLink } from "@angular/router";
 import { Product } from "../../models/product";
 import { CurrencyPipe, NgForOf, NgIf } from "@angular/common";
 import { LimitToPipe } from "../../pipe/limit-to.pipe";
-import { filter, Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+import {CartService} from "../../services/cart";
 
 @Component({
   selector: 'app-product-detail',
@@ -19,43 +20,25 @@ import { filter, Subscription } from 'rxjs';
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
-export class ProductDetailComponent implements OnInit, OnDestroy {
-  private routerSubscription?: Subscription;
-
+export class ProductDetailComponent implements OnInit {
   constructor(
     private productService: ProductService,
+    private cartService: CartService,
     private route: ActivatedRoute,
-    private router: Router
   ) {}
 
   id: string | null = null;
   product?: Product;
   products?: Product[];
+  addingToCart = false;
 
   ngOnInit(): void {
-    // Initial load
-    this.loadProduct();
-
-    // Subscribe to router events
-    this.routerSubscription = this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe(() => {
-      // Reload data when navigation ends
-      this.loadProduct();
-    });
-  }
-
-  ngOnDestroy(): void {
-    // Clean up subscription
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-    }
-  }
-
-  private loadProduct(): void {
-    this.id = this.route.snapshot.paramMap.get('id');
-
-    this.productService.getAll().subscribe({
+    this.route.paramMap.pipe(
+      switchMap(params => {
+        this.id = params.get('id');
+        return this.productService.getAll();
+      })
+    ).subscribe({
       next: (data: Product[]) => {
         if (this.id) {
           this.product = data.find(product => product.id?.toString() === this.id) || undefined;
@@ -71,6 +54,18 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
   }
 
   addToCart(product: Product | undefined) {
-    // Implement cart logic
+    if (!product) return;
+
+    this.addingToCart = true;
+    try {
+      this.cartService.addToCart(product);
+      // Optionnel : Ajouter une notification ou un message de succès
+      alert('Produit ajouté au panier avec succès !');
+    } catch (error) {
+      console.error('Erreur lors de l\'ajout au panier:', error);
+      alert('Erreur lors de l\'ajout au panier');
+    } finally {
+      this.addingToCart = false;
+    }
   }
 }

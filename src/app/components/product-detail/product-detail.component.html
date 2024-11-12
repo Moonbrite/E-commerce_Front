@@ -27,9 +27,10 @@
         </p>
         <button
           class="btn btn-success mt-3"
-          [disabled]="product?.stock === 0"
+          [disabled]="product?.stock === 0 || addingToCart"
           (click)="addToCart(product)">
-          Ajouter au panier
+          <span *ngIf="!addingToCart">Ajouter au panier</span>
+          <span *ngIf="addingToCart">Ajout en cours...</span>
         </button>
       </div>
     </div>
@@ -39,8 +40,9 @@
   <div class="row mt-5">
     <h3>Autres images</h3>
     <div class="col-6 col-md-3 mb-5" *ngFor="let image of products | limitTo:3">
-      <a [routerLink]="['/product', image?.id]"> <img [src]="image.imageUrl" alt="Autre image" class="other-image rounded"></a>
+      <a [routerLink]="['/product', image?.id]">
+        <img [src]="image.imageUrl" alt="Autre image" class="other-image rounded">
+      </a>
     </div>
   </div>
-
 </div>

@@ -1,0 +1,13 @@
+footer {
+  margin-top: auto;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
+.text-under {
+  color: white;
+}
+
+/*# sourceMappingURL=footer.component.css.map */

@@ -1,0 +1,42 @@
+.login {
+  padding: 4px 2px;
+  background: none;
+  border: none;
+  transition: background-color 0.3s;
+  text-decoration: none;
+
+  position: relative;
+
+  a {
+    color: #ffffff8c;
+    text-underline: white;
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out, right .3s ease-in-out;
+    &:hover {
+      transition: opacity .3s ease-in-out, visibility .3s ease-in-out, right .3s ease-in-out;
+      color: #ffffffbf;
+    }
+  }
+
+  &:before {
+    -webkit-transition: opacity .3s ease-in-out, visibility .3s ease-in-out, right .3s ease-in-out;
+    -o-transition: opacity .3s ease-in-out, visibility .3s ease-in-out, right .3s ease-in-out;
+    transition: opacity .3s ease-in-out, visibility .3s ease-in-out, right .3s ease-in-out;
+    content: '';
+    left: -.1rem;
+    right: calc(100% - 5px);
+    bottom: .3rem;
+    position: absolute;
+    background-color: #f8c500;
+    height: .045rem;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  &:hover {
+    &:before{
+      right: -.375rem;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}

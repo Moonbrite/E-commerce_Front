@@ -1,0 +1,38 @@
+.login {
+  padding: 4px 2px;
+  background: none;
+  border: none;
+  transition: background-color 0.3s;
+  text-decoration: none;
+  position: relative;
+}
+.login a {
+  color: rgba(255, 255, 255, 0.5490196078);
+  text-underline: white;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, right 0.3s ease-in-out;
+}
+.login a:hover {
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, right 0.3s ease-in-out;
+  color: rgba(255, 255, 255, 0.7490196078);
+}
+.login:before {
+  -webkit-transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, right 0.3s ease-in-out;
+  -o-transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, right 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out, right 0.3s ease-in-out;
+  content: "";
+  left: -0.1rem;
+  right: calc(100% - 5px);
+  bottom: 0.3rem;
+  position: absolute;
+  background-color: #f8c500;
+  height: 0.045rem;
+  opacity: 0;
+  visibility: hidden;
+}
+.login:hover:before {
+  right: -0.375rem;
+  opacity: 1;
+  visibility: visible;
+}
+
+/*# sourceMappingURL=header.component.css.map */

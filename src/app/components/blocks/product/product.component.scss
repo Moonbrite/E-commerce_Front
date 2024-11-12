@@ -1,0 +1,103 @@
+/* Conteneur principal */
+.gallery-container {
+  margin-top: 40px;
+
+  .gallery-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  /* Boutons de catégories */
+  .categories {
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .category {
+      font-size: 1rem;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: #f8f9fa;
+      border: 1px solid #ddd;
+      transition: background-color 0.3s;
+
+      &:hover {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+  }
+
+  /* Grille des images */
+  .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .gallery-item {
+    position: relative;
+    padding: 5px;
+    overflow: hidden;
+
+    .image-wrapper {
+      position: relative;
+      overflow: hidden;
+
+      .gallery-image {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.3s ease, filter 0.3s ease;
+
+        &:hover {
+          transform: scale(1.05);
+          filter: brightness(0.8);
+        }
+      }
+
+      /* Overlay visible au hover */
+      .overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgba(0, 0, 0, 0.2);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+
+        /* Bouton ou icône */
+        .btn {
+          font-size: 0.9rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 5px;
+          padding: 10px 15px;
+          background: none;
+          color: white;
+          border: none;
+          border-radius: 5px;
+
+          i {
+            font-size: 1.2rem;
+          }
+
+
+        }
+      }
+
+      &:hover .overlay {
+        opacity: 1;
+      }
+    }
+  }
+}

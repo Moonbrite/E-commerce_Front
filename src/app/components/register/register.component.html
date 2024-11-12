@@ -1,0 +1,42 @@
+<div class="container my-5">
+  <div class="d-flex justify-content-between my-3">
+    <h2 class=" text-center">Création de compte</h2>
+    <a class="back-to-login" [routerLink]="['/login']"> <-- Login</a>
+  </div>
+
+  <div class="register-form-container">
+    <form *ngIf="user" (ngSubmit)="addUser()" #registerform="ngForm" class="register-form">
+      <mat-form-field>
+        <mat-label>Prénom</mat-label>
+        <input #firstname="ngModel" name="firstname" matInput placeholder="Prénom" [(ngModel)]="user.firstName" required>
+        <mat-error *ngIf="!firstname.valid">Veuillez entrer un prénom</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Nom</mat-label>
+        <input #lastname="ngModel" name="lastName" matInput placeholder="Nom" [(ngModel)]="user.lastName" required>
+        <mat-error *ngIf="!lastname.valid">Veuillez entrer un nom</mat-error>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input #email="ngModel" name="email" matInput placeholder="Email" [(ngModel)]="user.email" required>
+        <mat-error *ngIf="!email.valid">Veuillez entrer un email</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input #password="ngModel" name="password" matInput placeholder="Password" [(ngModel)]="user.password" required>
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)">Veuillez entrer un mot de passe valide</mat-error>
+      </mat-form-field>
+
+
+      <div *ngIf="error" class="error">
+        <p>{{error}}</p>
+      </div>
+
+      <button class="btn btn-success my-3" [disabled]="!registerform.valid " type="submit">Soumettre</button>
+    </form>
+  </div>
+</div>

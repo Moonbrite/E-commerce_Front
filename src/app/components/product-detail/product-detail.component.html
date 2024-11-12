@@ -1,0 +1,46 @@
+<div class="container product-details">
+  <div class="row">
+    <!-- Image principale -->
+    <div class="col-md-7">
+      <div class="main-image-container">
+        <img
+          [src]="product?.imageUrl"
+          [alt]="product?.name"
+          class="main-image"
+        />
+      </div>
+    </div>
+
+    <!-- Détails du produit -->
+    <div class="col-md-5">
+      <div class="product-info">
+        <h1 class="product-title">{{ product?.name }}</h1>
+        <p class="product-price">{{ product?.price | currency: 'EUR' }}</p>
+        <p class="product-description">{{ product?.description }}</p>
+        <p class="product-stock">
+          <span *ngIf="product?.stock != 0">
+            Produit en stock : {{ product?.stock }}
+          </span>
+          <ng-container *ngIf="product?.stock === 0">
+            <span class="text-danger">Rupture de stock</span>
+          </ng-container>
+        </p>
+        <button
+          class="btn btn-success mt-3"
+          [disabled]="product?.stock === 0"
+          (click)="addToCart(product)">
+          Ajouter au panier
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Autres images -->
+  <div class="row mt-5">
+    <h3>Autres images</h3>
+    <div class="col-6 col-md-3 mb-5" *ngFor="let image of products">
+      <img [src]="image.imageUrl" alt="Autre image" class="other-image rounded">
+    </div>
+  </div>
+
+</div>

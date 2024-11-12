@@ -38,8 +38,8 @@
   <!-- Autres images -->
   <div class="row mt-5">
     <h3>Autres images</h3>
-    <div class="col-6 col-md-3 mb-5" *ngFor="let image of products">
-      <img [src]="image.imageUrl" alt="Autre image" class="other-image rounded">
+    <div class="col-6 col-md-3 mb-5" *ngFor="let image of products | limitTo:3">
+      <a [routerLink]="['/product', image?.id]"> <img [src]="image.imageUrl" alt="Autre image" class="other-image rounded"></a>
     </div>
   </div>
 

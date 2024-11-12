@@ -3,6 +3,7 @@ import {RouterLink} from "@angular/router";
 import {CurrencyPipe, NgForOf} from "@angular/common";
 import {Product} from "../../../models/product";
 import {ProductService} from "../../../services/product";
+import {LimitToPipe} from "../../../pipe/limit-to.pipe";
 
 @Component({
   selector: 'app-product',
@@ -10,7 +11,8 @@ import {ProductService} from "../../../services/product";
   imports: [
     RouterLink,
     CurrencyPipe,
-    NgForOf
+    NgForOf,
+    LimitToPipe
   ],
   templateUrl: './product.component.html',
   styleUrl: './product.component.scss'

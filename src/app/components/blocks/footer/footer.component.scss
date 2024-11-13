@@ -1,5 +1,9 @@
 footer {
   margin-top: auto;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 a:hover {
   text-decoration: underline !important;

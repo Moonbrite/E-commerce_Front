@@ -10,8 +10,9 @@
   <!-- Grille des images -->
   <div class="row gallery-grid">
     <div
-      class="col-6 col-md-4 col-lg-3 gallery-item"
-      *ngFor="let product of products | limitTo:9">
+      class="gallery-item"
+      style="padding: 0;"
+      *ngFor="let product of products | limitTo:48">
       <div class="image-wrapper">
         <div class="image-btn" (click)="navigateToProduct(product.id)">
           <img

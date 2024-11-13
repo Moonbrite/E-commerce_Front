@@ -13,19 +13,19 @@
       class="col-6 col-md-4 col-lg-3 gallery-item"
       *ngFor="let product of products | limitTo:9">
       <div class="image-wrapper">
-        <img
-          [src]="product.imageUrl"
-          [alt]="product.name"
-          class="gallery-image"
-        />
-        <div class="overlay">
-          <button class="btn" [routerLink]="['/product', product.id]">
+        <div class="image-btn" (click)="navigateToProduct(product.id)">
+          <img
+            [src]="product.imageUrl"
+            [alt]="product.name"
+            class="gallery-image"
+          />
+          <div class="overlay">
             <svg width="46" height="46" fill="white" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path d="M12 14.25a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
               <path d="M12 21.75a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
               <path d="M12 6.75a2.25 2.25 0 1 0 0-4.5 2.25 2.25 0 0 0 0 4.5Z"></path>
             </svg>
-          </button>
+          </div>
         </div>
       </div>
     </div>

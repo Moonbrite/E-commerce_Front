@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {NgIf} from "@angular/common";
 import {UserService} from "../../services/user";
-import {Router} from "@angular/router";
+import {Router, RouterModule} from "@angular/router";
 import {AuthRequest} from "../../models/auth-request";
 import {AuthResponse} from "../../models/auth-response";
 
@@ -11,7 +11,8 @@ import {AuthResponse} from "../../models/auth-response";
   standalone: true,
   imports: [
     FormsModule,
-    NgIf
+    NgIf,
+    RouterModule,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -31,7 +32,7 @@ export class LoginComponent {
     this.userService.loginUser(this.authRequest).subscribe({
       next: (data: AuthResponse): void => {
         window.localStorage.setItem("token", data.token);
-        this.router.navigate(["home"]).then(() => window.localStorage.setItem("token", data.token));
+        this.router.navigate([""]).then(() => window.localStorage.setItem("token", data.token));
       },
       error: (err): void => {
         this.error = err.type;

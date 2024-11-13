@@ -35,4 +35,12 @@
   visibility: visible;
 }
 
+.cart {
+  fill: rgba(255, 255, 255, 0.5490196078);
+}
+.cart:hover {
+  stroke-width: 1.5;
+  fill: white;
+}
+
 /*# sourceMappingURL=header.component.css.map */

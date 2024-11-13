@@ -1,0 +1,31 @@
+section.main{
+    min-height: 80vh;
+    display: flex;
+}
+.icon-connexion {
+    background-color: #2a2a2a;
+    padding: 5px;
+    border-radius: 25px;
+}
+.other_connexion {
+    padding: 25px;
+}
+.input_connexion {
+    width: 80%;
+    border: 2px solid #2a2a2a;
+    background: none;
+    border-radius: 0;
+    padding: 15px;
+}
+.input_connexion::placeholder {
+    color: #000000;
+}
+button {
+    padding: 7px 40px;
+    border: none;
+    background: #2a2a2a;
+    color: #ffffff;
+    border-radius: 15px;
+    text-transform: uppercase;
+    font-weight: 500; 
+}

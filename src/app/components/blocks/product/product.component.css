@@ -36,7 +36,6 @@
 }
 .gallery-container .gallery-item {
   position: relative;
-  padding: 5px;
   overflow: hidden;
 }
 .gallery-container .gallery-item .image-wrapper {
@@ -49,10 +48,6 @@
   height: 500px;
   object-fit: cover;
   transition: transform 0.3s ease, filter 0.3s ease;
-}
-.gallery-container .gallery-item .image-wrapper .gallery-image:hover {
-  transform: scale(1.05);
-  filter: brightness(0.8);
 }
 .gallery-container .gallery-item .image-wrapper .overlay {
   position: absolute;
@@ -68,23 +63,28 @@
   transition: opacity 0.3s ease;
   /* Bouton ou icône */
 }
-.gallery-container .gallery-item .image-wrapper .overlay .btn {
+.gallery-container .gallery-item .image-wrapper .overlay .image-btn {
   font-size: 0.9rem;
+  padding: 0 !important;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 5px;
-  padding: 10px 15px;
   background: none;
   color: white;
   border: none;
   border-radius: 5px;
 }
-.gallery-container .gallery-item .image-wrapper .overlay .btn i {
+.gallery-container .gallery-item .image-wrapper .overlay .image-btn i {
   font-size: 1.2rem;
 }
 .gallery-container .gallery-item .image-wrapper:hover .overlay {
   opacity: 1;
+}
+.gallery-container .gallery-item .image-wrapper:hover .gallery-image {
+  transform: scale(1.05);
+  filter: brightness(0.8);
 }
 
 /*# sourceMappingURL=product.component.css.map */

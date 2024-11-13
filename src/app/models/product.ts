@@ -1,6 +1,6 @@
 export class Product {
   constructor(
-    id?: number,
+    id: number,
     name?: string,
     description?: string,
     price?: number,
@@ -15,7 +15,7 @@ export class Product {
     this.imageUrl = imageUrl;
   }
 
-  id?: number;
+  id: number;
   name?: string;
   description?: string;
   price?: number;

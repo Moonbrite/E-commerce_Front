@@ -1,27 +1,24 @@
 <div class="container">
-  <h2>Panier</h2>
+  <h2>Mon Panier</h2>
   <div *ngIf="cartItems?.length; else emptyCart" class="cart-container">
     <div *ngFor="let item of cartItems" class="cart-item">
       <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="cart-item-image" />
       <div class="cart-item-details">
         <h5>{{ item.product.name }}</h5>
         <p>Prix : {{ item.product.price | currency: 'EUR' }}</p>
-        <button class="remove-btn" (click)="removeFromCart(item.product.id)">Supprimer</button>
+        <button class="remove-btn" (click)="removeFromCart(item.product.id,item.id)">Supprimer</button>
       </div>
     </div>
     <div class="cart-summary">
       <h4>Total général : {{ cartTotal | currency: 'EUR' }}</h4>
-      <button class="btn-danger" (click)="clearCart()">Vider le panier</button>
+      <button class="btn-clear" (click)="clearCart()">Vider le panier</button>
+      <button class="btn-primary" (click)="onPay()">Payer</button>
     </div>
   </div>
   <ng-template #emptyCart>
-    <p>Votre panier est vide.</p>
+    <div class="empty-cart">
+      <p>Votre panier est vide.</p>
+      <a routerLink="/" class="btn-shop">Explorer les produits</a>
+    </div>
   </ng-template>
-
-
-  <div>
-    <p (click)="onPay()" class="btn btn-primary">Payer</p>
-  </div>
 </div>
-
-

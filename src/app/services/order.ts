@@ -22,18 +22,17 @@ export interface Order {
   providedIn: 'root'
 })
 export class OrderService {
-  private apiUrl = environnement.apiUrl+"orders"; // Remplace par l'URL de ton backend
+  private apiUrl = environnement.apiUrl+"orders";
 
   constructor(private http: HttpClient) {}
 
   // Crée une commande avec ses items
-  // Crée une commande avec ses items
-  createOrder(cartItems: CartItem[], userId: number): Observable<any> {
+  createOrder(cartItems: CartItem[], userId: number | undefined): Observable<any> {
     const orderItems = cartItems.map(item => ({
       productId: item.product.id,
       quantity: item.quantity,
-      price: item.product.price, // Assure-toi que ce champ est bien défini
-      orderId: null // L'Order ID sera défini plus tard
+      price: item.product.price,
+      orderId: null
     }));
 
 
@@ -56,6 +55,7 @@ export class OrderService {
             this.http.post(`http://localhost:8081/api/order/items`, item)
           )
         );
+
       })
     );
   }

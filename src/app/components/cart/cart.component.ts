@@ -2,7 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {CartItem, CartService} from "../../services/cart";
 import {OrderService} from "../../services/order";
-import {Router} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
+import {UserService} from "../../services/user";
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +11,8 @@ import {Router} from "@angular/router";
   imports: [
     NgIf,
     NgForOf,
-    CurrencyPipe
+    CurrencyPipe,
+    RouterLink
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -19,23 +21,60 @@ export class CartComponent implements OnInit{
 
   cartItems: CartItem[] = [];
   cartTotal: number = 0;
+  userId?:number;
 
   constructor(
     private cartService: CartService,
     private orderService: OrderService,
-    private router:Router
+    private router:Router,
+    private userService: UserService,
     ) {}
 
   ngOnInit(): void {
-    this.cartService.cartItems$.subscribe((items) => {
-      this.cartItems = items;
-      this.cartTotal = this.cartService.getCartTotal();
+
+    if (window.localStorage.getItem("token")) {
+
+      this.userService.findUserByEmail(this.userService.getEmailToken()).subscribe({
+        next:  data => {
+          this.userId = data.id;
+
+          this.cartService.getCartItems(this.userId).subscribe({
+            next: data => {
+              this.cartItems = data.items;
+              console.log(this.cartItems);
+              this.cartTotal = this.cartTotal = this.cartItems.reduce((total, item) => {
+                // @ts-ignore
+                return total + (item.product.price * item.quantity);
+              }, 0);
+
+
+            }
+          })
+
+        }
+      })
+
+    } else {
+      this.cartService.cartItems$.subscribe((items) => {
+        this.cartItems = items;
+        this.cartTotal = this.cartService.getCartTotal();
+      });
+    }
+
+  }
+
+  removeFromCart(productId: number, id: number | undefined): void {
+    this.cartService.removeFromCart(productId,id).subscribe({
+      next: () => {
+        console.log('Produit supprimé avec succès');
+      },
+      error: (error) => {
+        console.error('Erreur lors de la suppression:', error);
+
+      }
     });
   }
 
-  removeFromCart(productId: number): void {
-    this.cartService.removeFromCart(productId);
-  }
 
 
   clearCart(): void {
@@ -48,19 +87,29 @@ export class CartComponent implements OnInit{
       return;
     }
 
-    // Supposons que l'utilisateur est connecté avec un ID (sinon, ajuste)
-    const userId = 1; // Remplace par l'ID de l'utilisateur connecté
 
-    this.orderService.createOrder(this.cartItems, userId).subscribe({
-      next: (order) => {
-        alert('Commande passée avec succès !');
-        this.cartService.clearCart(); // Vider le panier
+    this.userService.findUserByEmail(this.userService.getEmailToken()).subscribe({
+      next: (data) => {
+
+        this.userId = data.id;
+
+        this.orderService.createOrder(this.cartItems, this.userId).subscribe({
+          next: (order) => {
+            alert('Commande passée avec succès !');
+            this.cartService.clearCart(); // Vider le panier
+          },
+          error: (error) => {
+            console.error(error);
+            alert('Erreur lors du paiement. Veuillez réessayer.');
+          }
+        });
+
       },
-      error: (error) => {
-        console.error(error);
-        alert('Erreur lors du paiement. Veuillez réessayer.');
-      }
-    });
+      error: (error) => {console.log(error);}
+    })
+
+
   }
+
 
 }

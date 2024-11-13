@@ -71,4 +71,9 @@
   border-color: #007bff;
 }
 
+.text-info {
+  color: #1b6d9d !important;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=product-detail.component.css.map */

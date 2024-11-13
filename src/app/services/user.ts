@@ -95,7 +95,7 @@ export class UserService {
 
   // Return one user (All info of User)
   findUserByEmail(email:string) :Observable<User> {
-    return this.httpClient.get<User>(this.apiUrl +"/email/"+ email).pipe(
+    return this.httpClient.get<User>("http://localhost:8081/api/users/email/"+ email).pipe(
       retry(1),
       catchError(this.handleError)
     )

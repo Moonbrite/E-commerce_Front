@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { ProductService } from "../../services/product";
 import { ActivatedRoute, RouterLink } from "@angular/router";
 import { Product } from "../../models/product";
@@ -6,6 +6,7 @@ import { CurrencyPipe, NgForOf, NgIf } from "@angular/common";
 import { LimitToPipe } from "../../pipe/limit-to.pipe";
 import { switchMap } from 'rxjs/operators';
 import {CartService} from "../../services/cart";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-product-detail',
@@ -25,6 +26,7 @@ export class ProductDetailComponent implements OnInit {
     private productService: ProductService,
     private cartService: CartService,
     private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {}
 
   id: string | null = null;
@@ -32,9 +34,12 @@ export class ProductDetailComponent implements OnInit {
   products?: Product[];
   addingToCart = false;
 
+  // Ajout d'une propriété pour indiquer si le produit est déjà dans le panier
+  isInCart = false;
+
   ngOnInit(): void {
     this.route.paramMap.pipe(
-      switchMap(params => {
+      switchMap((params) => {
         this.id = params.get('id');
         return this.productService.getAll();
       })
@@ -43,6 +48,13 @@ export class ProductDetailComponent implements OnInit {
         if (this.id) {
           this.product = data.find(product => product.id?.toString() === this.id) || undefined;
           this.products = data.filter(product => product.id?.toString() !== this.id);
+
+          // Vérifiez si le produit est déjà dans le panier
+          if (this.product) {
+            this.cartService.cartItems$.subscribe(items => {
+              this.isInCart = items.some(item => item.product.id === this.product!.id);
+            });
+          }
         } else {
           this.products = data;
         }
@@ -53,19 +65,29 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-  addToCart(product: Product | undefined) {
-    if (!product) return;
+  async addToCart(product: Product | undefined) {
+    if (!product || this.isInCart) return; // Bloque si déjà dans le panier
 
     this.addingToCart = true;
     try {
-      this.cartService.addToCart(product);
-      // Optionnel : Ajouter une notification ou un message de succès
-      alert('Produit ajouté au panier avec succès !');
+      await this.cartService.addToCart(product); // Appelle le service
+      this.isInCart = true; // Met à jour le statut
+
+      this.snackBar.open(
+        `L'image "${product.name}" a bien été ajoutée au panier.`,
+        "Fermer",
+        {
+          duration: 3000,
+          horizontalPosition: 'left',
+          verticalPosition: 'top',
+        }
+      );
     } catch (error) {
-      console.error('Erreur lors de l\'ajout au panier:', error);
-      alert('Erreur lors de l\'ajout au panier');
+      console.error("Erreur lors de l'ajout au panier:", error);
+      alert("Erreur lors de l'ajout au panier");
     } finally {
       this.addingToCart = false;
     }
   }
 }
+

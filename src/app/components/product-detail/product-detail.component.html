@@ -27,11 +27,17 @@
         </p>
         <button
           class="btn btn-success mt-3"
+          *ngIf="!isInCart; else alreadyInCart"
           [disabled]="product?.stock === 0 || addingToCart"
           (click)="addToCart(product)">
           <span *ngIf="!addingToCart">Ajouter au panier</span>
           <span *ngIf="addingToCart">Ajout en cours...</span>
         </button>
+
+        <ng-template #alreadyInCart>
+          <p class="text-info mt-3">L'image est déjà présente dans le panier.</p>
+        </ng-template>
+
       </div>
     </div>
   </div>

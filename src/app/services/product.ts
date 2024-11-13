@@ -20,10 +20,5 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this.apiUrl)
   }
 
-  getOne(id: string): Observable<Product> {
-    return this.httpClient.get<Product>(this.apiUrl +"/" + id)
-  }
-
-
 
 }

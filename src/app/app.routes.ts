@@ -4,6 +4,7 @@ import {LoginComponent} from "./components/login/login.component";
 import {RegisterComponent} from "./components/register/register.component";
 import {ProductDetailComponent} from "./components/product-detail/product-detail.component";
 import {CartComponent} from "./components/cart/cart.component";
+import {ContactComponent} from "./components/contact/contact.component";
 
 export const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -11,4 +12,5 @@ export const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'product/:id', component: ProductDetailComponent},
   {path: 'cart', component: CartComponent},
+  {path:'contact', component: ContactComponent},
 ];

@@ -1,6 +1,6 @@
 <div class="container">
   <h2>Mon Panier</h2>
-  <div *ngIf="cartItems?.length; else emptyCart" class="cart-container">
+  <div *ngIf="cartItems?.length ; else emptyCart" class="cart-container">
     <div *ngFor="let item of cartItems" class="cart-item">
       <img [src]="item.product.imageUrl" alt="{{ item.product.name }}" class="cart-item-image" />
       <div class="cart-item-details">

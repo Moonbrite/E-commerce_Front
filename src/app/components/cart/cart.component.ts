@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {CurrencyPipe, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, CurrencyPipe, NgForOf, NgIf} from "@angular/common";
 import {CartItem, CartService} from "../../services/cart";
 import {OrderService} from "../../services/order";
 import {Router, RouterLink} from "@angular/router";
@@ -12,7 +12,8 @@ import {UserService} from "../../services/user";
     NgIf,
     NgForOf,
     CurrencyPipe,
-    RouterLink
+    RouterLink,
+    AsyncPipe
   ],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
@@ -26,7 +27,6 @@ export class CartComponent implements OnInit{
   constructor(
     private cartService: CartService,
     private orderService: OrderService,
-    private router:Router,
     private userService: UserService,
     ) {}
 
@@ -41,12 +41,11 @@ export class CartComponent implements OnInit{
           this.cartService.getCartItems(this.userId).subscribe({
             next: data => {
               this.cartItems = data.items;
-              console.log(this.cartItems);
+
               this.cartTotal = this.cartTotal = this.cartItems.reduce((total, item) => {
                 // @ts-ignore
                 return total + (item.product.price * item.quantity);
               }, 0);
-
 
             }
           })
@@ -64,15 +63,7 @@ export class CartComponent implements OnInit{
   }
 
   removeFromCart(productId: number, id: number | undefined): void {
-    this.cartService.removeFromCart(productId,id).subscribe({
-      next: () => {
-        console.log('Produit supprimé avec succès');
-      },
-      error: (error) => {
-        console.error('Erreur lors de la suppression:', error);
-
-      }
-    });
+    this.cartService.removeFromCart(productId,id)
   }
 
 

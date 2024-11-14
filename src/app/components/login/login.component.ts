@@ -31,6 +31,7 @@ export class LoginComponent {
     this.isLoading = true;
     this.userService.loginUser(this.authRequest).subscribe({
       next: (data: AuthResponse): void => {
+        window.localStorage.clear();
         window.localStorage.setItem("token", data.token);
         this.router.navigate([""]).then(() => window.localStorage.setItem("token", data.token));
       },

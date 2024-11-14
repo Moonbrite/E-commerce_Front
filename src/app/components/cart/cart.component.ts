@@ -4,6 +4,7 @@ import {CartItem, CartService} from "../../services/cart";
 import {OrderService} from "../../services/order";
 import {Router, RouterLink} from "@angular/router";
 import {UserService} from "../../services/user";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-cart',
@@ -28,6 +29,8 @@ export class CartComponent implements OnInit{
     private cartService: CartService,
     private orderService: OrderService,
     private userService: UserService,
+    private router: Router,
+    private snackBar: MatSnackBar
     ) {}
 
   ngOnInit(): void {
@@ -86,8 +89,18 @@ export class CartComponent implements OnInit{
 
         this.orderService.createOrder(this.cartItems, this.userId).subscribe({
           next: (order) => {
-            alert('Commande passée avec succès !');
+            this.snackBar.open(
+              `L'achat a bien été effectué 🥳`,
+              "Fermer",
+              {
+                duration: 3000,
+                horizontalPosition: 'left',
+                verticalPosition: 'top',
+              }
+            );
+
             this.cartService.clearCart(); // Vider le panier
+            this.router.navigate([""]).then(() => { this.cartService.clearCart()})
           },
           error: (error) => {
             console.error(error);

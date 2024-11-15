@@ -7,6 +7,8 @@ import {CartComponent} from "./components/cart/cart.component";
 import {ContactComponent} from "./components/contact/contact.component";
 import {CondGenVenteComponent} from "./components/cond-gen-vente/cond-gen-vente.component";
 import {MentionsLegalesComponent} from "./components/mentions-legales/mentions-legales.component";
+import {MonCompteComponent} from "./components/mon-compte/mon-compte.component";
+import {loginGuard} from "./guard/login-guard";
 
 export const routes: Routes = [
   {path: '', component: HomePageComponent},
@@ -17,4 +19,6 @@ export const routes: Routes = [
   {path:'contact', component: ContactComponent},
   {path:'conditions', component: CondGenVenteComponent},
   {path:'mentions-legales', component: MentionsLegalesComponent},
+  {path:'mon-compte', component: MonCompteComponent, canActivate: [loginGuard]},
+
 ];

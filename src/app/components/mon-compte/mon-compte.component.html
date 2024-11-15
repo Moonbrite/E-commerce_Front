@@ -1,0 +1,51 @@
+
+<div class="container my-5">
+  <h1 class="mb-4" *ngIf="user">Mon Compte</h1>
+
+  <div class="card" *ngIf="user">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p class="font-weight-bold">Nom:</p>
+          <p>{{ user.firstName }} {{ user.lastName }}</p>
+        </div>
+        <div class="col-md-6">
+          <p class="font-weight-bold">Email:</p>
+          <p>{{ user.email }}</p>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button class="btn btn-primary">Modifier mon profil</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container my-5">
+    <h2 class="mb-4">Mes Commandes</h2>
+
+    <div *ngFor="let order of user.orders" class="card mb-4">
+      <div class="card-header">
+        <h5>Commande #{{ order.id }}</h5>
+        <p class="mb-0">Passée le {{ order.orderDate | date:'dd/MM/yyyy' }}</p>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6">
+            <h6>Récapitulatif</h6>
+            <p>Total: {{ order.totalPrice | currency }}</p>
+            <p>État: {{ order.paymentStatus }}</p>
+          </div>
+          <div class="col-md-6">
+            <h6>Détails</h6>
+            <p>Items: {{ order.items?.length }}</p>
+            <button class="btn btn-primary" (click)="showOrderDetails(order)">Voir les détails</button>
+            <!-- mon-compte.component.html -->
+            <app-order-details-component
+              [order]="selectedOrder">
+            </app-order-details-component>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

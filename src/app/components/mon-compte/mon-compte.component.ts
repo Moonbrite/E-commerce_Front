@@ -60,10 +60,7 @@ export class MonCompteComponent implements OnInit{
   }
 
 
-
-
-
-
-
-
+  logOut() {
+    this.userService.logOutUser()
+  }
 }

@@ -1,32 +1,21 @@
-<div class="modal fade"  role="dialog">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Détails de la commande #{{ order?.id }}</h5>
-        <button type="button" class="close" data-dismiss="modal" >
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6">
-            <h6>Récapitulatif</h6>
-            <p>Total: {{ order?.totalPrice | currency }}</p>
-            <p>État: {{ order?.paymentStatus }}</p>
-          </div>
-          <div class="col-md-6">
-            <h6>Articles</h6>
-            <ul class="list-group">
-              <li *ngFor="let item of order?.items" class="list-group-item">
-                {{ item.product?.name }} - {{ item.quantity }} x {{ item.product?.price | currency }}
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-      </div>
+<h2 mat-dialog-title>Detail du panier</h2>
+<mat-dialog-content>
+  <div class="row">
+    <div class="col-md-6">
+      <h6>Récapitulatif</h6>
+      <p>Total: {{ order?.totalPrice | currency }}</p>
+      <p>État: {{ order?.paymentStatus }}</p>
+    </div>
+    <div class="col-md-6">
+      <h6>Articles</h6>
+      <ul class="list-group">
+        <li *ngFor="let item of order?.items" class="list-group-item">
+          {{ item.product?.name }} - {{ item.quantity }} x {{ item.product?.price | currency }}
+        </li>
+      </ul>
     </div>
   </div>
-</div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Fermer</button>
+</mat-dialog-actions>

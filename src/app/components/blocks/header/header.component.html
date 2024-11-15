@@ -23,12 +23,6 @@
 
       <!-- Icons et bouton connexion -->
       <div class="d-flex align-items-center gap-3">
-        <a routerLink="/cart" class="text-white">
-          <i class="bi bi-cart fs-5"></i>
-        </a>
-        <a routerLink="/profile" class="text-white">
-          <i class="bi bi-person fs-5"></i>
-        </a>
         <button *ngIf="!isConnectesUser" class="login">
           <a routerLink="/login" class="text-decoration-none">Connexion</a>
         </button>

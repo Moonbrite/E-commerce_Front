@@ -1,9 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from "../../services/user";
 import {User} from "../../models/user";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
 import {Order} from "../../models/order";
 import {OrderDetailsComponentComponent} from "../order-details-component/order-details-component.component";
+import {MatButton} from "@angular/material/button";
+import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-mon-compte',
@@ -13,7 +15,12 @@ import {OrderDetailsComponentComponent} from "../order-details-component/order-d
     DatePipe,
     CurrencyPipe,
     NgForOf,
-    OrderDetailsComponentComponent
+    OrderDetailsComponentComponent,
+    MatButton,
+    MatDialogActions,
+    MatDialogClose,
+    MatDialogContent,
+    MatDialogTitle
   ],
   templateUrl: './mon-compte.component.html',
   styleUrl: './mon-compte.component.scss'
@@ -21,7 +28,8 @@ import {OrderDetailsComponentComponent} from "../order-details-component/order-d
 export class MonCompteComponent implements OnInit{
 
 
-  @ViewChild(OrderDetailsComponentComponent) orderDetailsModal?: OrderDetailsComponentComponent ;
+
+  @ViewChild('orderDetailsDialog') orderDetailsDialog!: TemplateRef<any>;
 
 
   constructor(
@@ -32,7 +40,6 @@ export class MonCompteComponent implements OnInit{
 
   user:User = new User();
 
-  selectedOrder?: Order;
 
   ngOnInit(): void {
 
@@ -42,10 +49,14 @@ export class MonCompteComponent implements OnInit{
     })
 
   }
+  readonly dialog = inject(MatDialog);
 
-  showOrderDetails(order: Order) {
-    this.selectedOrder = order;
-
+  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.dialog.open( this.orderDetailsDialog, {
+      width: '250px',
+      enterAnimationDuration,
+      exitAnimationDuration,
+    });
   }
 
 

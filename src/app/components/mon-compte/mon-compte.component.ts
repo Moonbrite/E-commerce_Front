@@ -2,8 +2,6 @@ import {Component, inject, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {UserService} from "../../services/user";
 import {User} from "../../models/user";
 import {CurrencyPipe, DatePipe, NgForOf, NgIf} from "@angular/common";
-import {Order} from "../../models/order";
-import {OrderDetailsComponentComponent} from "../order-details-component/order-details-component.component";
 import {MatButton} from "@angular/material/button";
 import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogTitle} from "@angular/material/dialog";
 
@@ -15,7 +13,6 @@ import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialog
     DatePipe,
     CurrencyPipe,
     NgForOf,
-    OrderDetailsComponentComponent,
     MatButton,
     MatDialogActions,
     MatDialogClose,
@@ -51,13 +48,17 @@ export class MonCompteComponent implements OnInit{
   }
   readonly dialog = inject(MatDialog);
 
-  openDialog(enterAnimationDuration: string, exitAnimationDuration: string): void {
-    this.dialog.open( this.orderDetailsDialog, {
-      width: '250px',
+  selectedOrder: any; // Variable pour stocker la commande sélectionnée
+
+  openDialog(order: any, enterAnimationDuration: string, exitAnimationDuration: string): void {
+    this.selectedOrder = order; // Stocker la commande sélectionnée
+    this.dialog.open(this.orderDetailsDialog, {
+      width: '600px',
       enterAnimationDuration,
       exitAnimationDuration,
     });
   }
+
 
 
 

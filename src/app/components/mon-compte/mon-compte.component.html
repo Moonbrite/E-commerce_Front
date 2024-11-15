@@ -1,4 +1,3 @@
-
 <div class="container my-5">
   <h1 class="mb-4" *ngIf="user">Mon Compte</h1>
 
@@ -13,9 +12,6 @@
           <p class="font-weight-bold">Email:</p>
           <p>{{ user.email }}</p>
         </div>
-      </div>
-      <div class="d-flex justify-content-end">
-        <button class="btn btn-primary">Modifier mon profil</button>
       </div>
     </div>
   </div>
@@ -32,37 +28,35 @@
         <div class="row">
           <div class="col-md-6">
             <h6>Récapitulatif</h6>
-            <p>Total: {{ order.totalPrice | currency }}</p>
+            <p>Total: {{ order.totalPrice | currency: 'EUR' }}</p>
             <p>État: {{ order.paymentStatus }}</p>
           </div>
           <div class="col-md-6">
             <h6>Détails</h6>
             <p>Items: {{ order.items?.length }}</p>
-            <button mat-raised-button (click)="openDialog('0ms', '0ms')">Open dialog without animation</button>
+            <button mat-raised-button (click)="openDialog(order, '0ms', '0ms')">Voir le détail</button>
             <ng-template #orderDetailsDialog>
-
-
-            <h2 mat-dialog-title>Detail du panier</h2>
-            <mat-dialog-content>
-              <div class="row">
-                <div class="col-md-6">
-                  <h6>Récapitulatif</h6>
-                  <p>Total: {{ order?.totalPrice | currency }}</p>
-                  <p>État: {{ order?.paymentStatus }}</p>
+              <h2 mat-dialog-title>Détail du panier</h2>
+              <mat-dialog-content>
+                <div class="row">
+                  <div class="col-md-6">
+                    <h6>Récapitulatif</h6>
+                    <p>Total: {{ selectedOrder?.totalPrice | currency: 'EUR' }}</p>
+                    <p>État: {{ selectedOrder?.paymentStatus }}</p>
+                  </div>
+                  <div class="col-md-6">
+                    <h6>Articles</h6>
+                    <ul class="list-group">
+                      <li *ngFor="let item of selectedOrder?.items" class="list-group-item">
+                        {{ item.product?.name }} - {{ item.product?.price | currency:'EUR' }}
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-                <div class="col-md-6">
-                  <h6>Articles</h6>
-                  <ul class="list-group">
-                    <li *ngFor="let item of order?.items" class="list-group-item">
-                      {{ item.product?.name }} - {{ item.quantity }} x {{ item.product?.price | currency }}
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </mat-dialog-content>
-            <mat-dialog-actions>
-              <button mat-button mat-dialog-close>Fermer</button>
-            </mat-dialog-actions>
+              </mat-dialog-content>
+              <mat-dialog-actions>
+                <button mat-button mat-dialog-close>Fermer</button>
+              </mat-dialog-actions>
             </ng-template>
           </div>
         </div>

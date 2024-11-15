@@ -11,7 +11,6 @@
     </div>
     <div class="cart-summary">
       <h4>Total général : {{ cartTotal | currency: 'EUR' }}</h4>
-      <button class="btn-clear" (click)="clearCart()">Vider le panier</button>
       <button class="btn-primary" (click)="onPay()">Payer</button>
     </div>
   </div>

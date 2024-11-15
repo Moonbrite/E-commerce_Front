@@ -95,6 +95,19 @@
   width: calc(100% - 20px);
 }
 
+.categories .btn {
+  margin: 5px;
+  border-radius: 5px;
+  text-transform: capitalize;
+  transition: all 0.3s ease-in-out;
+}
+
+.categories .active {
+  background-color: #007bff !important;
+  color: #ffffff;
+  font-weight: bold;
+}
+
 @media (min-width: 576px) {
   .gallery-item {
     width: calc(50% - 20px);

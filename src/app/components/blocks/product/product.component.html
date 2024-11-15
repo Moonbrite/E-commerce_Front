@@ -1,18 +1,29 @@
 <div class="container gallery-container">
   <h1 class="gallery-title">Galerie</h1>
-  <!-- Catégories -->
+
+  <!-- Filtres de Catégories -->
   <div class="categories">
-    <button class="btn btn-light category">
-      category
+    <button
+      class="btn btn-light category"
+      [class.active]="!activeCategoryId"
+      (click)="filterByCategory()">
+      Tous
+    </button>
+    <button
+      class="btn btn-light category"
+      *ngFor="let category of categories | limitTo:8 "
+      [class.active]="activeCategoryId === category.id"
+      (click)="filterByCategory(category.id)">
+      {{ category.name }}
     </button>
   </div>
 
-  <!-- Grille des images -->
+  <!-- Grille des Images -->
   <div class="row gallery-grid">
     <div
       class="gallery-item"
       style="padding: 0;"
-      *ngFor="let product of products | limitTo:48">
+      *ngFor="let product of filteredProducts | limitTo:48">
       <div class="image-wrapper">
         <div class="image-btn" (click)="navigateToProduct(product.id)">
           <img

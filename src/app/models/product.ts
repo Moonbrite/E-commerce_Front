@@ -1,3 +1,5 @@
+import {Category} from "./category";
+
 export class Product {
   constructor(
     id: number,
@@ -5,7 +7,8 @@ export class Product {
     description?: string,
     price?: number,
     stock?: number,
-    imageUrl?: string
+    imageUrl?: string,
+    category?:Category
   ) {
     this.id = id;
     this.name = name;
@@ -13,6 +16,7 @@ export class Product {
     this.price = price;
     this.stock = stock;
     this.imageUrl = imageUrl;
+    this.category = category;
   }
 
   id: number;
@@ -21,5 +25,6 @@ export class Product {
   price?: number;
   stock?: number;
   imageUrl?: string;
+  category?: Category;
 
 }

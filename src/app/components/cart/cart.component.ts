@@ -71,10 +71,6 @@ export class CartComponent implements OnInit{
 
 
 
-  clearCart(): void {
-    this.cartService.clearCart();
-  }
-
   onPay(): void {
     if (!this.cartItems.length) {
       alert('Votre panier est vide.');
